@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <script>
+    function isName(elem)
+    {
+      var msg = "Names are strictly alphabetical!";
+      var regEx = /^[a-zA-Z]+$/i;
+      if(elem.value.match(regEx))
+      {
+        return true;
+      }
+      else {
+        alert(msg);
+        elem.focus();
+        return false;
+      }
+    }
+    function checkNumber(elem)
+    {
+      var msg = "Invalid Phone Number, Phone Number Format is XXX-XXX-XXXX"
+      var phoneno = /^\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4})$/;
+     if(elem.value.match(phoneno).length > 0)
+     {
+     return true;
+     }
+     else
+     {
+       alert(msg);
+       return false;
+     }
+    }
+    function checkForm()
+    {
+      return checkNumber(document.getElementById('number')) && isName(document.getElementById('name'));
+    }
+	
+	function SubmitForm()
+	{
+	if(checkForm()){
+        showResultDiv();
+        //document.forms['myForm'].action='ruby.rb';
+        //document.forms['myForm'].target='frame_result1';
+        //document.forms['myForm'].submit();
+
+        //document.forms['myForm'].action='python.py';
+        //document.forms['myForm'].target='frame_result2';
+        //document.forms['myForm'].submit();
+    }
+	return true;
+	}
+	
+	
+	function showResultDiv()
+{
+    var result_div = document.getElementById('resultcontainer');
+    result_div.style.display="";
+}
+
+function hideResultDiv()
+{
+    var result_div = document.getElementById('resultcontainer');
+    result_div.style.display='none';
+}
+
+  </script>
+</head>
+<body onload='hideResultDiv();'>
+  <div class="container">
+  <h2>Lab 6 Part 2</h2>
+  <h3>Eric Jaskierski</h3>
+  <h4>500644178</h4>
+
+  <div class="form-container" id="form-container">
+    <form action="cgi-bin/lab6pt2.rb" method="POST" id="myForm" name="myForm">
+      <div>
+        <div>
+          <label for="Name">Name</label>
+          <input type="text" id="name" required onchange="isName(document.getElementById('name'))">
+        </div>
+        <div>
+          <label for="Phone">Phone Number</label>
+          <input type="tel" id="number" required onchange="checkNumber(document.getElementById('number'))">
+        </div>
+        </div>
+        <div>
+          <label for="Address">Address</label>
+          <textarea name="address" class="u-full-width" id="address" type="text" required></textarea>
+        </div>
+        <div id="submit">
+          <input  id="submit-button" type="submit" value="Submit" onclick='javascript: return SubmitForm()'>
+        </div>
+
+    </form>
+  </div>
+  <div id='resultcontainer'>
+   <div class='iframe_container'>
+    <iframe name='frame_result1' width='350px' height='100px' frameborder='0'></iframe>
+   </div>
+  </div >
+ </div>
+</body>
+</html>
